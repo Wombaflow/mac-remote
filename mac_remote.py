@@ -11,6 +11,7 @@ import subprocess, sys, threading, time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
+__version__ = "1.0.0"
 PORT = int(os.environ.get("PORT", "8080"))
 TLS_PORT = int(os.environ.get("TLS_PORT", "8443"))
 UK = os.environ.get("LANG", "").lower().startswith(("uk", "ru")) or os.environ.get("MR_LANG") == "uk"
@@ -282,6 +283,8 @@ def make_cert(ips, host):
 
 
 def main():
+    if "--version" in sys.argv[1:]:
+        print("mac-remote", __version__); return
     ips = all_ips()
     srv = Server(("0.0.0.0", PORT), H)
     tls_ok = False
@@ -336,7 +339,7 @@ html,body{margin:0;height:100%;background:#000;color:#fff;font:16px -apple-syste
 #sheet{position:fixed;left:0;right:0;bottom:0;padding:12px 14px max(env(safe-area-inset-bottom),12px);background:#111114;border-top:1px solid #222;display:none;gap:12px;flex-direction:column}
 #sheet.open{display:flex}
 #txt{width:100%;font:inherit;color:#fff;background:#1c1c21;border:0;border-radius:12px;padding:13px 14px;outline:0;-webkit-user-select:text;user-select:text}
-#spd{width:100%;accent-color:#7c5cff}
+#spd,#gs{width:100%;accent-color:#7c5cff}
 #login{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 #pin{width:200px;font:600 34px -apple-system,system-ui,sans-serif;letter-spacing:.45em;text-indent:.45em;text-align:center;color:#fff;background:transparent;border:0;border-bottom:2px solid #333;outline:0;padding:8px;-webkit-user-select:text;user-select:text}
 #pin.bad{border-color:#ff453a}
